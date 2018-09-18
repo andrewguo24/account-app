@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Record from './Record';
-import axios from 'axios';
 import * as RecordsAPI from '../utils/RecordsAPI'
+import RecordForm from '../components/RecordForm'
 
 export default class Records extends Component {
     state = {
@@ -26,14 +26,15 @@ export default class Records extends Component {
 
     render() {
         const {error, isLoaded, records} = this.state;
+        let recordsComponent;
+
         if (error) {
-            return <div>Error: {error.message}</div>;
+            recordsComponent = <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
-            return <div>Loading...</div>;
+            recordsComponent = <div>Loading...</div>;
         } else {
-            return (
+            recordsComponent = (
                 <div>
-                    <h2>Records</h2>
                     <table className="table table-bordered">
                         <thead>
                         <tr>
@@ -49,5 +50,13 @@ export default class Records extends Component {
                 </div>
             );
         }
+
+        return (
+            <div>
+                <h2>Records</h2>
+                <RecordForm />
+                { recordsComponent }
+            </div>
+        )
     }
 }
