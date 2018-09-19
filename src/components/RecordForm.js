@@ -20,8 +20,21 @@ export default class RecordForm extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        RecordsAPI.create(this.state).then(
-            response => console.log(response.date)
+        const data = {
+            date: this.state.date,
+            title: this.state.title,
+            amount: Number.parseInt(this.state.amount, 0)
+        };
+
+        RecordsAPI.create(data).then(
+            response => {
+                this.props.handleNewRecord(response.data);
+                this.setState({
+                    date: "",
+                    title: "",
+                    amount: ""
+                });
+            }
         ).catch(
             error => console.log(error.message)
         )
