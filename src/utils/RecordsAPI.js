@@ -10,3 +10,6 @@ export const create = (body) =>
 
 export const update = (id, body) =>
     axios.put(`${api}/api/v1/records/${id}`, body)
+
+export const remove = (id, body) =>
+    axios.delete(`${api}/api/v1/records/${id}`)
